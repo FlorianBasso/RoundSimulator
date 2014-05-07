@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../GAMES/PoolMadness/ProjetUnity/Anton_poolMadness/Assets/Scripts/Menu/Jouer_btn.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Menu/NewRound_btn.cs">
     <Files>
-      <File FileName="../../../../../GAMES/PoolMadness/ProjetUnity/Anton_poolMadness/Assets/Scripts/Menu/Jouer_btn.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/Menu/NewRound_btn.cs" Line="15" Column="3" />
+      <File FileName="Assets/Scripts/Menu/ModifyRound_btn.cs" Line="45" Column="3" />
+      <File FileName="Assets/Scripts/Menu/Quit_btn.cs" Line="21" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
