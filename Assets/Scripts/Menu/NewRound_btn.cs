@@ -13,9 +13,7 @@ public class NewRound_btn : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-//		SpriteFunctions.ResizeSpriteToScreen(this.gameObject, GameObject.FindGameObjectWithTag("MainCamera").camera, 1, 0);
-//		Vector3 newPosition = new Vector3 (this.transform.position.x/Screen.width, this.transform.position.y/Screen.height, 0);
-//		this.transform.position = newPosition;
+
 	}
 	
 	// Update is called once per frame

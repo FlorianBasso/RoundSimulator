@@ -49,9 +49,9 @@
      <Compile Include="Assets\Scripts\Menu\ModifyRound_btn.cs" />
      <Compile Include="Assets\Scripts\Menu\NewRound_btn.cs" />
      <Compile Include="Assets\Scripts\Menu\Quit_btn.cs" />
+     <Compile Include="Assets\Scripts\ResizeWithScreenHeight.cs" />
      <Compile Include="Assets\Scripts\RotateRobot.cs" />
      <Compile Include="Assets\Scripts\ScreenRelativePosition.cs" />
-     <Compile Include="Assets\Scripts\SpriteFunctions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
