@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraControl : MonoBehaviour {
-
+	public GameObject test;
 	// Use this for initialization
 	void Start () {
 	
@@ -10,7 +10,6 @@ public class CameraControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		//ZOOM 
 		float zoom = Input.GetAxis("Mouse ScrollWheel");
 		if(zoom >= 0.1)
@@ -24,7 +23,7 @@ public class CameraControl : MonoBehaviour {
 		}
 
 		//DRAG CAMERA
-		if(Input.GetButton("Fire1") && Interface.isOnGUI == false) 
+		if(Input.GetButton("Fire2")) //&& Interface.isOnGUI == false) 
 		{
 			Vector3 CameraPos;
 			

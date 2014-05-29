@@ -1,5 +1,5 @@
 private var motor : CharacterMotor;
-
+public var speed : float;
 // Use this for initialization
 function Awake () {
 	motor = GetComponent(CharacterMotor);
