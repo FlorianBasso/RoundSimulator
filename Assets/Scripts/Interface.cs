@@ -2,20 +2,10 @@
 using System.Collections;
 
 public class Interface : MonoBehaviour {
-	//PREFABS
-	public GameObject cube;
-	public GameObject sphere;
-	public GameObject robot;
-	public GameObject startSpawn;
-	public GameObject explode;
-	public GameObject goUp;
-	public GameObject goDown;
-	public GameObject lightOn;
-	public GameObject lockDown;
-	public GameObject PlayMusic;
-	public GameObject sendEmail;
-	public GameObject turnLeft;
-	public GameObject turnRight;
+
+	//GAMEOBJECT IN THE SCENE 
+	private GameObject startSpawn;
+	private GameObject robot;
 	//BUTTONS INTERFACE
 	public Rect windowObstacle;
 	public Rect windowRobot;
@@ -39,7 +29,8 @@ public class Interface : MonoBehaviour {
 	{
 		if (windowObstacle.Contains (Input.mousePosition) || windowRobot.Contains (Input.mousePosition) || windowMarkers.Contains (Input.mousePosition) || windowSimulation.Contains (Input.mousePosition)) {
 			isOnGUI = true;
-			robot.GetComponent<FPSInputControllerC>().speed = robotSpeed;
+			if(robot)
+				robot.GetComponent<Move>().speed = robotSpeed;
 		}
 		else 
 		{
@@ -59,12 +50,12 @@ public class Interface : MonoBehaviour {
 	{
 		if (GUI.Button(new Rect(10, 20, 100, 20), "Cube"))
 		{
-			Instantiate(cube, new Vector3(0,0.5f,0), Quaternion.identity);
+			Instantiate(Resources.Load("Cube"), new Vector3(0,0.5f,0), Quaternion.identity);
 		}
 		
 		if (GUI.Button(new Rect(10, 50, 100, 20), "Sphere"))
 		{
-			Instantiate(sphere, new Vector3(0,0.5f,0), Quaternion.identity);
+			Instantiate(Resources.Load("Sphere"), new Vector3(0,0.5f,0), Quaternion.identity);
 		}
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
 	}
@@ -73,7 +64,7 @@ public class Interface : MonoBehaviour {
 	{
 		if (GUI.Button(new Rect(10, 20, 100, 20), "Starting Point"))
 		{
-			Instantiate(startSpawn, new Vector3(0,0.5f,0), Quaternion.identity);
+			startSpawn = Instantiate(Resources.Load("StartSpawn"), new Vector3(0,0.5f,0), Quaternion.identity) as GameObject;
 		}
 		//ROBOT SPEED
 		Rect rectLabelRobotSpeed = new Rect(10, 50, 100, 30);
@@ -87,39 +78,39 @@ public class Interface : MonoBehaviour {
 	{
 		if (GUI.Button(new Rect(10, 20, 100, 20), "Turn Left"))
 		{
-			Instantiate(turnLeft, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("TurnLeft"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
 		if (GUI.Button(new Rect(10, 50, 100, 20), "Go Up"))
 		{
-			Instantiate(goUp, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("GoUp"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
 		if (GUI.Button(new Rect(10, 80, 100, 20), "Go Down"))
 		{
-			Instantiate(goDown, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("GoDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
 		if (GUI.Button(new Rect(10, 110, 100, 20), "Turn Right"))
 		{
-			Instantiate(turnRight, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));	
+			Instantiate(Resources.Load("TurnRight"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));	
 		}
 		if (GUI.Button(new Rect(10, 140, 100, 20), "Explode"))
 		{
-			Instantiate(explode, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("Explode"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
-		if (GUI.Button(new Rect(10, 170, 100, 20), "Put The Light On"))
+		if (GUI.Button(new Rect(10, 170, 100, 20), "Light On"))
 		{
-			Instantiate(lightOn, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("LightOn"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
 		if (GUI.Button(new Rect(10, 200, 100, 20), "Lock Down"))
 		{
-			Instantiate(lockDown, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("LockDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
 		if (GUI.Button(new Rect(10, 230, 100, 20), "Play Music"))
 		{
-			Instantiate(PlayMusic, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("PlayMusic"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
 		if (GUI.Button(new Rect(10, 260, 100, 20), "Send Email"))
 		{
-			Instantiate(sendEmail, new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			Instantiate(Resources.Load("SendEmail"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
 		}
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
 	}
@@ -132,7 +123,8 @@ public class Interface : MonoBehaviour {
 		}
 		if (GUI.Button(new Rect(10, 50, 100, 20), "Play"))
 		{
-			
+			robot = Instantiate(Resources.Load("Robot"), startSpawn.transform.position, Quaternion.identity) as GameObject;
+
 		}
 		if (GUI.Button(new Rect(10, 80, 100, 20), "Forward"))
 		{
@@ -140,7 +132,7 @@ public class Interface : MonoBehaviour {
 		}
 		if (GUI.Button(new Rect(10, 110, 100, 20), "Stop"))
 		{
-			
+			DestroyImmediate(robot, true);
 		}
 		//SIMULATION SPEED
 		Rect rectLabelSimulationSpeed = new Rect(10, 140, 100, 30);
