@@ -5,10 +5,10 @@ public class DragObject : MonoBehaviour {
 
 	Vector3 screenPoint;
 	Vector3 offset;
-
+	Color initialColor;
 	// Use this for initialization
 	void Start () {
-	
+		initialColor = this.renderer.material.color;
 	}
 	
 	// Update is called once per frame
@@ -21,11 +21,26 @@ public class DragObject : MonoBehaviour {
 		screenPoint = Camera.main.WorldToScreenPoint(scanPos);
 		offset = scanPos - Camera.main.ScreenToWorldPoint(
 			new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
 	}	
-	
-	void OnMouseDrag() {
+
+	void OnMouseUp()
+	{
+		this.renderer.material.color = initialColor;
+	}
+	void OnMouseDrag() 
+	{
+		this.renderer.material.color = Color.red;
+
+		//Update object position
 		Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 		Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 		transform.position = curPosition;
+
+		//Delete object
+		if (Input.GetButtonDown ("Jump")) 
+		{
+			DestroyImmediate(this.gameObject, true);
+		}
 	}
 }

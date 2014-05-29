@@ -123,8 +123,12 @@ public class Interface : MonoBehaviour {
 		}
 		if (GUI.Button(new Rect(10, 50, 100, 20), "Play"))
 		{
-			robot = Instantiate(Resources.Load("Robot"), startSpawn.transform.position, Quaternion.identity) as GameObject;
-
+			if(startSpawn)
+			{
+				robot = Instantiate(Resources.Load("Robot"), startSpawn.transform.position, Quaternion.identity) as GameObject;
+				this.camera.enabled = false;
+				robot.GetComponentInChildren<Camera>().enabled = true;
+			}
 		}
 		if (GUI.Button(new Rect(10, 80, 100, 20), "Forward"))
 		{
@@ -133,6 +137,7 @@ public class Interface : MonoBehaviour {
 		if (GUI.Button(new Rect(10, 110, 100, 20), "Stop"))
 		{
 			DestroyImmediate(robot, true);
+			this.camera.enabled = true;
 		}
 		//SIMULATION SPEED
 		Rect rectLabelSimulationSpeed = new Rect(10, 140, 100, 30);
