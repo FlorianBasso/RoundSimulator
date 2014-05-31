@@ -13,7 +13,7 @@ public class DragObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	void OnMouseDown() {
@@ -40,6 +40,7 @@ public class DragObject : MonoBehaviour {
 		//Delete object
 		if (Input.GetButtonDown ("Jump")) 
 		{
+			Camera.main.GetComponent<Manager>().RemoveObjectInMarkersArray(this.gameObject);
 			DestroyImmediate(this.gameObject, true);
 		}
 	}

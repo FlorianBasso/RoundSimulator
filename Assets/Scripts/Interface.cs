@@ -36,6 +36,16 @@ public class Interface : MonoBehaviour {
 		{
 			isOnGUI = false;
 		}
+		//Change Camera
+		if(robot)
+		{
+			if(Input.GetKeyDown(KeyCode.C))
+			{
+				Debug.Log("PRESS C");
+				this.camera.enabled = (this.camera.enabled ? false : true);
+				robot.GetComponentInChildren<Camera>().enabled = (robot.GetComponentInChildren<Camera>().enabled ? false : true);
+			}
+		}
 	}
 
 	void OnGUI()
@@ -65,6 +75,7 @@ public class Interface : MonoBehaviour {
 		if (GUI.Button(new Rect(10, 20, 100, 20), "Starting Point"))
 		{
 			startSpawn = Instantiate(Resources.Load("StartSpawn"), new Vector3(0,0.5f,0), Quaternion.identity) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(startSpawn);
 		}
 		//ROBOT SPEED
 		Rect rectLabelRobotSpeed = new Rect(10, 50, 100, 30);
@@ -76,41 +87,51 @@ public class Interface : MonoBehaviour {
 
 	void setWindowMarkers(int windowID) 
 	{
+		GameObject aMarker;
 		if (GUI.Button(new Rect(10, 20, 100, 20), "Turn Left"))
 		{
-			Instantiate(Resources.Load("TurnLeft"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("TurnLeft"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 50, 100, 20), "Go Up"))
 		{
-			Instantiate(Resources.Load("GoUp"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("GoUp"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 80, 100, 20), "Go Down"))
 		{
-			Instantiate(Resources.Load("GoDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("GoDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 110, 100, 20), "Turn Right"))
 		{
-			Instantiate(Resources.Load("TurnRight"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));	
+			aMarker = Instantiate(Resources.Load("TurnRight"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;	
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 140, 100, 20), "Explode"))
 		{
-			Instantiate(Resources.Load("Explode"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("Explode"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 170, 100, 20), "Light On"))
 		{
-			Instantiate(Resources.Load("LightOn"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("LightOn"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 200, 100, 20), "Lock Down"))
 		{
-			Instantiate(Resources.Load("LockDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("LockDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 230, 100, 20), "Play Music"))
 		{
-			Instantiate(Resources.Load("PlayMusic"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("PlayMusic"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 260, 100, 20), "Send Email"))
 		{
-			Instantiate(Resources.Load("SendEmail"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0));
+			aMarker = Instantiate(Resources.Load("SendEmail"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
 	}

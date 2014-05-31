@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\FPSInputControllerC.cs" />
      <Compile Include="Assets\Scripts\FilePicker.cs" />
      <Compile Include="Assets\Scripts\Interface.cs" />
+     <Compile Include="Assets\Scripts\Manager.cs" />
      <Compile Include="Assets\Scripts\Menu\ModifyRound_btn.cs" />
      <Compile Include="Assets\Scripts\Menu\NewRound_btn.cs" />
      <Compile Include="Assets\Scripts\Menu\Quit_btn.cs" />
