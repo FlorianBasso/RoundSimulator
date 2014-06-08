@@ -62,7 +62,9 @@ public class Interface : MonoBehaviour {
 		}
 		if (!simulationIsRunning) 
 		{
-			windowMarkers = GUI.Window(2, windowMarkers, setWindowMarkers, "Markers");
+			if(startSpawn)
+				windowMarkers = GUI.Window(2, windowMarkers, setWindowMarkers, "Markers");
+
 			windowObstacle = GUI.Window(0, windowObstacle, setWindowObstacle, "Obstacles");
 		}
 		windowRobot = GUI.Window(1, windowRobot, setWindowRobot, "Robot");
@@ -106,47 +108,32 @@ public class Interface : MonoBehaviour {
 	void setWindowMarkers(int windowID) 
 	{
 		GameObject aMarker;
-		if (GUI.Button(new Rect(10, 20, 100, 20), "Turn Left"))
+		if (GUI.Button(new Rect(10, 20, 100, 20), "Node"))
 		{
-			aMarker = Instantiate(Resources.Load("TurnLeft"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
+			aMarker = Instantiate(Resources.Load("Node"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 50, 100, 20), "Go Up"))
-		{
-			aMarker = Instantiate(Resources.Load("GoUp"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
-		}
-		if (GUI.Button(new Rect(10, 80, 100, 20), "Go Down"))
-		{
-			aMarker = Instantiate(Resources.Load("GoDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
-		}
-		if (GUI.Button(new Rect(10, 110, 100, 20), "Turn Right"))
-		{
-			aMarker = Instantiate(Resources.Load("TurnRight"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;	
-			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
-		}
-		if (GUI.Button(new Rect(10, 140, 100, 20), "Explode"))
+		if (GUI.Button(new Rect(10, 50, 100, 20), "Explode"))
 		{
 			aMarker = Instantiate(Resources.Load("Explode"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 170, 100, 20), "Light On"))
+		if (GUI.Button(new Rect(10, 80, 100, 20), "Light On"))
 		{
 			aMarker = Instantiate(Resources.Load("LightOn"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 200, 100, 20), "Lock Down"))
+		if (GUI.Button(new Rect(10, 110, 100, 20), "Lock Down"))
 		{
 			aMarker = Instantiate(Resources.Load("LockDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 230, 100, 20), "Play Music"))
+		if (GUI.Button(new Rect(10, 140, 100, 20), "Play Music"))
 		{
 			aMarker = Instantiate(Resources.Load("PlayMusic"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 260, 100, 20), "Send Email"))
+		if (GUI.Button(new Rect(10, 170, 100, 20), "Send Email"))
 		{
 			aMarker = Instantiate(Resources.Load("SendEmail"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
