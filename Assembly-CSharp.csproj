@@ -59,12 +59,15 @@
      <Compile Include="Assets\Scripts\Menu\ModifyRound_btn.cs" />
      <Compile Include="Assets\Scripts\Menu\NewRound_btn.cs" />
      <Compile Include="Assets\Scripts\Menu\Quit_btn.cs" />
-     <Compile Include="Assets\Scripts\Move.cs" />
      <Compile Include="Assets\Scripts\OBJLoader\FaceIndices.cs" />
      <Compile Include="Assets\Scripts\OBJLoader\GeometryBuffer.cs" />
      <Compile Include="Assets\Scripts\OBJLoader\OBJ.cs" />
      <Compile Include="Assets\Scripts\OpenFile.cs" />
+     <Compile Include="Assets\Scripts\Pathfinding\Actor.cs" />
+     <Compile Include="Assets\Scripts\Pathfinding\Avoidance.cs" />
+     <Compile Include="Assets\Scripts\Pathfinding\NodeControl.cs" />
      <Compile Include="Assets\Scripts\ResizeWithScreenHeight.cs" />
+     <Compile Include="Assets\Scripts\RobotBehaviour.cs" />
      <Compile Include="Assets\Scripts\RotateRobot.cs" />
      <Compile Include="Assets\Scripts\ScreenRelativePosition.cs" />
      <Compile Include="Assets\Scripts\SimulatorButtons.cs" />

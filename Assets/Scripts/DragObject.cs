@@ -21,7 +21,6 @@ public class DragObject : MonoBehaviour {
 		screenPoint = Camera.main.WorldToScreenPoint(scanPos);
 		offset = scanPos - Camera.main.ScreenToWorldPoint(
 			new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-
 	}	
 
 	void OnMouseUp()

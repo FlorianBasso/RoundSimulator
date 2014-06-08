@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Move : MonoBehaviour {
+public class RobotBehaviour : MonoBehaviour {
 
 	public enum Direction{Up, Right, Down, Left};
 	public Direction currentDirection;

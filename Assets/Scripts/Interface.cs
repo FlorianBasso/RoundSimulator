@@ -29,8 +29,8 @@ public class Interface : MonoBehaviour {
 	{
 		if (windowObstacle.Contains (Input.mousePosition) || windowRobot.Contains (Input.mousePosition) || windowMarkers.Contains (Input.mousePosition) || windowSimulation.Contains (Input.mousePosition)) {
 			isOnGUI = true;
-			if(robot)
-				robot.GetComponent<Move>().speed = robotSpeed;
+//			if(robot)
+//				robot.GetComponent<RobotBehaviour>().speed = robotSpeed;
 		}
 		else 
 		{
@@ -50,6 +50,17 @@ public class Interface : MonoBehaviour {
 
 	void OnGUI()
 	{	
+		//GO BACK to MENU 
+		if (GUI.Button(new Rect(0, 0, 50, 20), "Menu"))
+		{
+			Application.LoadLevel(0);
+		}
+		//CLOSE APPLICATION
+		if (GUI.Button(new Rect(Screen.width - 50, 0, 50, 20), "Close"))
+		{
+			Application.Quit();
+		}
+
 		windowObstacle = GUI.Window(0, windowObstacle, setWindowObstacle, "Obstacles");
 		windowRobot = GUI.Window(1, windowRobot, setWindowRobot, "Robot");
 		windowMarkers = GUI.Window(2, windowMarkers, setWindowMarkers, "Markers");
@@ -147,8 +158,9 @@ public class Interface : MonoBehaviour {
 			if(startSpawn)
 			{
 				robot = Instantiate(Resources.Load("Robot"), startSpawn.transform.position, Quaternion.identity) as GameObject;
-				this.camera.enabled = false;
-				robot.GetComponentInChildren<Camera>().enabled = true;
+//				this.camera.enabled = false;
+//				robot.GetComponentInChildren<Camera>().enabled = true;
+				Camera.main.GetComponent<CameraControl>().actor = robot;
 			}
 		}
 		if (GUI.Button(new Rect(10, 80, 100, 20), "Forward"))
