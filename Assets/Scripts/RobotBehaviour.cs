@@ -1,116 +1,91 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 public class RobotBehaviour : MonoBehaviour {
 
-	public enum Direction{Up, Right, Down, Left};
-	public Direction currentDirection;
 	public float speed = 5.0f;
-	private bool hasCollided = false;
+
+	private GameObject mainCamera;
+	private int currentIndexMarker = 1;
+	private GameObject currentMarker;
+	private Vector3 currentTargetPosition;
+	private ArrayList markersArray; 
+
 	// Use this for initialization
 	void Start () {
-	
+		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
+		markersArray = mainCamera.GetComponent<Manager> ().markersArray;
+		MoveToNextMarker ();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (!hasCollided) 
+		if (mainCamera.GetComponent<Interface> ().simulationIsRunning)
 		{
-			switch (currentDirection) 
+			if (Vector3.Distance(this.transform.position, currentTargetPosition) <= 0.2) 
 			{
-				case Direction.Up:
-					MoveUp();
-					break;
-				case Direction.Right:
-					MoveRight();
-					break;
-				case Direction.Down:
-					MoveDown();
-					break;
-				case Direction.Left:
-					MoveLeft();
-					break;
+				if(currentMarker.name.Contains("StartSpawn"))
+				{
+					mainCamera.GetComponent<Interface>().StopSimulation();
+				}
+				else
+				{
+					if (currentMarker.name.Contains("LightOn")) 
+					{
+						LightOn ();
+						Debug.Log("LightOn");
+					}
+					else if (currentMarker.name.Contains("LockDown")) 
+					{
+						LockDown();
+						Debug.Log("LockDOwn");
+					}
+					else if (currentMarker.name.Contains("PlayMusic")) 
+					{
+						PlayMusic();
+						Debug.Log("PlayMusic");
+					}
+					else if (currentMarker.name.Contains("SendEmail")) 
+					{
+						SendEmail();
+						Debug.Log("SendEmail");
+					}
+					else if (currentMarker.name.Contains("Explode")) 
+					{
+						Explode();
+						Debug.Log("Explode");
+					}
+					MoveToNextMarker();
+				}
 			}
-		}
-	}
-	//COLLISION MANAGEMENT
-	void OnTriggerEnter(Collider other) 
-	{
-		Debug.Log (other.gameObject.tag);
-		if (other.gameObject.name.Contains("GoUp")) 
-		{
-			currentDirection = Direction.Up;
-			Debug.Log("GoUP");
-		}
-		else if (other.gameObject.name.Contains("GoDown")) 
-		{
-			currentDirection = Direction.Down;
-			Debug.Log("GoDOwn");
-		}
-		else if (other.gameObject.name.Contains("LightOn")) 
-		{
-			LightOn ();
-			Debug.Log("LightOn");
-		}
-		else if (other.gameObject.name.Contains("LockDown")) 
-		{
-			LockDown();
-			Debug.Log("LockDOwn");
-		}
-		else if (other.gameObject.name.Contains("PlayMusic")) 
-		{
-			PlayMusic();
-			Debug.Log("PlayMusic");
-		}
-		else if (other.gameObject.name.Contains("SendEmail")) 
-		{
-			SendEmail();
-			Debug.Log("SendEmail");
-		}
-		else if (other.gameObject.name.Contains("Explode")) 
-		{
-			Explode();
-			Debug.Log("Explode");
-		}
-		else if (other.gameObject.name.Contains("TurnLeft")) 
-		{
-			currentDirection = Direction.Left;
-			Debug.Log("TurnLeft");
-		}
-		else if (other.gameObject.name.Contains("TurnRight")) 
-		{
-			currentDirection = Direction.Right;
-			Debug.Log("TurnRight");
-		}
-		else if(other.gameObject.tag == "Obstacle")
-		{
-			hasCollided = true;
-			Debug.Log ("COLLISION TRIGGER");	
 		}
 	}
 
 	//MARKERS MANAGEMENT
-	void MoveUp()
+	public void MoveToNextMarker()
 	{
-		this.transform.position += Vector3.forward * Time.deltaTime * speed;
-		this.transform.localEulerAngles = Vector3.zero;
+		if (currentIndexMarker == markersArray.Count) 
+		{
+			//GO back to the startSpawn
+			currentMarker = markersArray [0] as GameObject;
+			this.GetComponent<Actor>().MoveOrder(currentMarker.transform.position);
+			currentMarker.GetComponent<BoxCollider> ().enabled = false;
+			currentTargetPosition = currentMarker.transform.position;
+			currentIndexMarker = 0;
+		}
+		else
+		{
+			//Move to the position of the marker
+			currentMarker = markersArray[currentIndexMarker] as GameObject;
+			currentMarker.GetComponent<BoxCollider> ().enabled = false;
+			float X = currentMarker.transform.position.x;
+			float Z = currentMarker.transform.position.z;
+			currentTargetPosition = new Vector3(X, this.transform.position.y, Z);
+			this.GetComponent<Actor>().MoveOrder(currentTargetPosition);
+			currentIndexMarker++;
+		}
 	}
-	void MoveDown()
-	{
-		this.transform.position -= Vector3.forward  * Time.deltaTime * speed;
-		this.transform.localEulerAngles = new Vector3(0, 180, 0);
-	}
-	void MoveLeft()
-	{
-		this.transform.position -= Vector3.right * Time.deltaTime * speed;
-		this.transform.localEulerAngles = new Vector3(0, 270, 0);
-	}
-	void MoveRight()
-	{
-		this.transform.position += Vector3.right * Time.deltaTime * speed;
-		this.transform.localEulerAngles = new Vector3(0, 90, 0);
-	}
+
 	void LightOn()
 	{
 		

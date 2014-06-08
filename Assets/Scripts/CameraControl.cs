@@ -18,32 +18,6 @@ public class CameraControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		/***Left Click****/
-
-		if (actor) 
-		{
-			if (Input.GetKey(KeyCode.Mouse0) && leftClickFlag)
-				leftClickFlag = false;
-			
-			if (!Input.GetKey(KeyCode.Mouse0) && !leftClickFlag)
-			{
-				leftClickFlag = true;
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				if (Physics.Raycast(ray, out hit, 100))
-				{
-					if (hit.transform.tag == floorTag)
-					{
-						float X = hit.point.x;
-						float Z = hit.point.z;
-						Vector3 target = new Vector3(X, actor.transform.position.y, Z);
-						
-						actor.GetComponent<Actor>().MoveOrder(target);
-					}
-				}
-			}
-		}
-
 		//ZOOM 
 		float zoom = Input.GetAxis("Mouse ScrollWheel");
 		if(zoom >= 0.1)

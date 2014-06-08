@@ -9,9 +9,9 @@ public class Actor : MonoBehaviour {
 		IDLE,
 		MOVING,
 	}
-	
+
 	float m_speed;
-	float m_speed_multi = 5;
+	public float m_speed_multi = 20;
 	public bool DebugMode;
 	
 	bool onNode = true;

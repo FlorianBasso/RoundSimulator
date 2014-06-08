@@ -14,7 +14,7 @@ public class Interface : MonoBehaviour {
 	public float robotSpeed = 5.0f;
 	public float simulationSpeed = 5.0f;
 	static public bool isOnGUI = false;
-
+	public bool simulationIsRunning = false;
 	// Use this for initialization
 	void Start () {
 //		OBJ.Instance.Start("../Wall-E pack/Wall-E MediumPoly/Wall-E.obj", Vector3.zero, () =>
@@ -29,8 +29,8 @@ public class Interface : MonoBehaviour {
 	{
 		if (windowObstacle.Contains (Input.mousePosition) || windowRobot.Contains (Input.mousePosition) || windowMarkers.Contains (Input.mousePosition) || windowSimulation.Contains (Input.mousePosition)) {
 			isOnGUI = true;
-//			if(robot)
-//				robot.GetComponent<RobotBehaviour>().speed = robotSpeed;
+			if(robot)
+				robot.GetComponent<Actor>().m_speed_multi = robotSpeed;
 		}
 		else 
 		{
@@ -60,10 +60,12 @@ public class Interface : MonoBehaviour {
 		{
 			Application.Quit();
 		}
-
-		windowObstacle = GUI.Window(0, windowObstacle, setWindowObstacle, "Obstacles");
+		if (!simulationIsRunning) 
+		{
+			windowMarkers = GUI.Window(2, windowMarkers, setWindowMarkers, "Markers");
+			windowObstacle = GUI.Window(0, windowObstacle, setWindowObstacle, "Obstacles");
+		}
 		windowRobot = GUI.Window(1, windowRobot, setWindowRobot, "Robot");
-		windowMarkers = GUI.Window(2, windowMarkers, setWindowMarkers, "Markers");
 		windowSimulation = GUI.Window(3, windowSimulation, setWindowSimulation, "Simulation");
 	}	
 	
@@ -78,6 +80,7 @@ public class Interface : MonoBehaviour {
 		{
 			Instantiate(Resources.Load("Sphere"), new Vector3(0,0.5f,0), Quaternion.identity);
 		}
+
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
 	}
 	
@@ -85,9 +88,13 @@ public class Interface : MonoBehaviour {
 	{
 		if (GUI.Button(new Rect(10, 20, 100, 20), "Starting Point"))
 		{
-			startSpawn = Instantiate(Resources.Load("StartSpawn"), new Vector3(0,0.5f,0), Quaternion.identity) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(startSpawn);
+			if(!startSpawn)
+			{
+				startSpawn = Instantiate(Resources.Load("StartSpawn"), new Vector3(0,0.5f,0), Quaternion.identity) as GameObject;
+				this.GetComponent<Manager>().AddObjectInMarkersArray(startSpawn);
+			}
 		}
+
 		//ROBOT SPEED
 		Rect rectLabelRobotSpeed = new Rect(10, 50, 100, 30);
 		Rect rectRobotSpeed = new Rect(10, 80, 100, 30);
@@ -102,49 +109,50 @@ public class Interface : MonoBehaviour {
 		if (GUI.Button(new Rect(10, 20, 100, 20), "Turn Left"))
 		{
 			aMarker = Instantiate(Resources.Load("TurnLeft"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 50, 100, 20), "Go Up"))
 		{
 			aMarker = Instantiate(Resources.Load("GoUp"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 80, 100, 20), "Go Down"))
 		{
 			aMarker = Instantiate(Resources.Load("GoDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 110, 100, 20), "Turn Right"))
 		{
 			aMarker = Instantiate(Resources.Load("TurnRight"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;	
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 140, 100, 20), "Explode"))
 		{
 			aMarker = Instantiate(Resources.Load("Explode"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 170, 100, 20), "Light On"))
 		{
 			aMarker = Instantiate(Resources.Load("LightOn"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 200, 100, 20), "Lock Down"))
 		{
 			aMarker = Instantiate(Resources.Load("LockDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 230, 100, 20), "Play Music"))
 		{
 			aMarker = Instantiate(Resources.Load("PlayMusic"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
 		if (GUI.Button(new Rect(10, 260, 100, 20), "Send Email"))
 		{
 			aMarker = Instantiate(Resources.Load("SendEmail"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
-			Camera.main.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
+			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+
+		GUI.DragWindow(new Rect(0, 0, 10000, 10000));	
 	}
 
 	void setWindowSimulation(int windowID) 
@@ -158,9 +166,10 @@ public class Interface : MonoBehaviour {
 			if(startSpawn)
 			{
 				robot = Instantiate(Resources.Load("Robot"), startSpawn.transform.position, Quaternion.identity) as GameObject;
-//				this.camera.enabled = false;
-//				robot.GetComponentInChildren<Camera>().enabled = true;
-				Camera.main.GetComponent<CameraControl>().actor = robot;
+				this.camera.enabled = false;
+				robot.GetComponentInChildren<Camera>().enabled = true;
+				this.GetComponent<CameraControl>().actor = robot;
+				simulationIsRunning = true;
 			}
 		}
 		if (GUI.Button(new Rect(10, 80, 100, 20), "Forward"))
@@ -169,14 +178,14 @@ public class Interface : MonoBehaviour {
 		}
 		if (GUI.Button(new Rect(10, 110, 100, 20), "Stop"))
 		{
-			DestroyImmediate(robot, true);
-			this.camera.enabled = true;
+			StopSimulation();
 		}
 		//SAVE
 		if (GUI.Button(new Rect(10, 140, 100, 20), "Save"))
 		{
 			//Add a prompt where the user can enter a name for the save then click ok OR cancel
 		}
+
 		//SIMULATION SPEED
 //		Rect rectLabelSimulationSpeed = new Rect(10, 140, 100, 30);
 //		Rect rectSimulationSpeed = new Rect(10, 170, 100, 30);
@@ -184,5 +193,19 @@ public class Interface : MonoBehaviour {
 //		simulationSpeed = GUI.HorizontalSlider(rectSimulationSpeed, simulationSpeed, 10.0f, 30.0f);
 
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+	}
+
+	public void StopSimulation()
+	{
+		DestroyImmediate(robot, true);
+		this.camera.enabled = true;
+		simulationIsRunning = false;
+
+		//Enabled all markers' collider
+		for (int i = 0; i < this.GetComponent<Manager>().markersArray.Count; i++) 
+		{
+			GameObject aMarker = this.GetComponent<Manager>().markersArray[i] as GameObject;
+			aMarker.GetComponent<BoxCollider>().enabled = true;
+		}
 	}
 }
