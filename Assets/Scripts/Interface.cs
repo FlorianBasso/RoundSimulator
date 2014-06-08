@@ -160,11 +160,17 @@ public class Interface : MonoBehaviour {
 			DestroyImmediate(robot, true);
 			this.camera.enabled = true;
 		}
+		//SAVE
+		if (GUI.Button(new Rect(10, 140, 100, 20), "Save"))
+		{
+			//Add a prompt where the user can enter a name for the save then click ok OR cancel
+		}
 		//SIMULATION SPEED
-		Rect rectLabelSimulationSpeed = new Rect(10, 140, 100, 30);
-		Rect rectSimulationSpeed = new Rect(10, 170, 100, 30);
-		GUI.Label(rectLabelSimulationSpeed, "Simulation speed");
-		simulationSpeed = GUI.HorizontalSlider(rectSimulationSpeed, simulationSpeed, 10.0f, 30.0f);
+//		Rect rectLabelSimulationSpeed = new Rect(10, 140, 100, 30);
+//		Rect rectSimulationSpeed = new Rect(10, 170, 100, 30);
+//		GUI.Label(rectLabelSimulationSpeed, "Simulation speed");
+//		simulationSpeed = GUI.HorizontalSlider(rectSimulationSpeed, simulationSpeed, 10.0f, 30.0f);
+
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
 	}
 }
