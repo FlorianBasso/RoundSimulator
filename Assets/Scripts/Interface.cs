@@ -68,19 +68,20 @@ public class Interface : MonoBehaviour {
 			windowObstacle = GUI.Window(0, windowObstacle, setWindowObstacle, "Obstacles");
 		}
 		windowRobot = GUI.Window(1, windowRobot, setWindowRobot, "Robot");
-		windowSimulation = GUI.Window(3, windowSimulation, setWindowSimulation, "Simulation");
+		if(startSpawn)
+			windowSimulation = GUI.Window(3, windowSimulation, setWindowSimulation, "Simulation");
 	}	
 	
 	void setWindowObstacle(int windowID) 
 	{
-		if (GUI.Button(new Rect(10, 20, 100, 20), "Cube"))
+		if (GUI.Button(new Rect(10, 20, 100, 20), "Chair"))
 		{
-			Instantiate(Resources.Load("Cube"), new Vector3(0,0.5f,0), Quaternion.identity);
+			Instantiate(Resources.Load("chair_7106"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0));
 		}
 		
-		if (GUI.Button(new Rect(10, 50, 100, 20), "Sphere"))
+		if (GUI.Button(new Rect(10, 50, 100, 20), "Table"))
 		{
-			Instantiate(Resources.Load("Sphere"), new Vector3(0,0.5f,0), Quaternion.identity);
+			Instantiate(Resources.Load("table_7103"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0));
 		}
 
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
