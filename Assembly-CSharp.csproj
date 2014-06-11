@@ -46,13 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AddCube.cs" />
-     <Compile Include="Assets\Scripts\AddElement.cs" />
      <Compile Include="Assets\Scripts\CameraControl.cs" />
-     <Compile Include="Assets\Scripts\CharacterMotorC.cs" />
-     <Compile Include="Assets\Scripts\DataField.cs" />
      <Compile Include="Assets\Scripts\DragObject.cs" />
-     <Compile Include="Assets\Scripts\FPSInputControllerC.cs" />
      <Compile Include="Assets\Scripts\FilePicker.cs" />
      <Compile Include="Assets\Scripts\Interface.cs" />
      <Compile Include="Assets\Scripts\Manager.cs" />
@@ -66,13 +61,9 @@
      <Compile Include="Assets\Scripts\Pathfinding\Actor.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\Avoidance.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\NodeControl.cs" />
-     <Compile Include="Assets\Scripts\ResizeWithScreenHeight.cs" />
      <Compile Include="Assets\Scripts\RotateRobot.cs" />
      <Compile Include="Assets\Scripts\ScreenRelativePosition.cs" />
      <Compile Include="Assets\Scripts\Simulation.cs" />
-     <Compile Include="Assets\Scripts\SimulatorButtons.cs" />
-     <Compile Include="Assets\Scripts\Traveler.cs" />
-     <Compile Include="Assets\Scripts\dragElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">

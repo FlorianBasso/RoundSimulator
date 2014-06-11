@@ -110,16 +110,22 @@ public class OBJ
 
         foreach (MaterialData m in materialData)
         {
-            if (m.diffuseTexPath != null)
+			Debug.Log(materialData);
+			if (m.bumpTexPath != null)
+			{
+				WWW texloaderbump = GetTextureLoader(m, m.diffuseTexPath);
+				coroutiner.GetComponent<Coroutiner>().StartCoroutine(LoadTexture(texloaderbump, m, "bump", translation, callback));
+			}
+			else if (m.diffuseTexPath != null)
             {
                 WWW texloaderdiff = GetTextureLoader(m, m.diffuseTexPath);
 				coroutiner.GetComponent<Coroutiner>().StartCoroutine(LoadTexture(texloaderdiff, m, "diffuse", translation, callback));
             }
-            if (m.bumpTexPath != null)
-            {
-				WWW texloaderbump = GetTextureLoader(m, m.diffuseTexPath);
-				coroutiner.GetComponent<Coroutiner>().StartCoroutine(LoadTexture(texloaderbump, m, "bump", translation, callback));
-            }
+			else
+			{
+				Build(translation);
+				callback();
+			}
         }
 	}
 	
