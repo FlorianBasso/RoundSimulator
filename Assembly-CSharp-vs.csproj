@@ -67,9 +67,9 @@
      <Compile Include="Assets\Scripts\Pathfinding\Avoidance.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\NodeControl.cs" />
      <Compile Include="Assets\Scripts\ResizeWithScreenHeight.cs" />
-     <Compile Include="Assets\Scripts\RobotBehaviour.cs" />
      <Compile Include="Assets\Scripts\RotateRobot.cs" />
      <Compile Include="Assets\Scripts\ScreenRelativePosition.cs" />
+     <Compile Include="Assets\Scripts\Simulation.cs" />
      <Compile Include="Assets\Scripts\SimulatorButtons.cs" />
      <Compile Include="Assets\Scripts\Traveler.cs" />
      <Compile Include="Assets\Scripts\dragElement.cs" />

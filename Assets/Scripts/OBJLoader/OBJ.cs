@@ -78,7 +78,7 @@ public class OBJ
     public IEnumerator Load(WWW loader,string path, Vector3 translation, Action callback)
     {
 		yield return loader;
-		
+		Debug.Log ("LOAD");
         basepath = (path.IndexOf("/") == -1) ? "" : path.Substring(0, path.LastIndexOf("/") + 1);
         
         SetGeometryData(loader.text);
@@ -98,6 +98,7 @@ public class OBJ
 	public IEnumerator LoadMTL(WWW loader, Vector3 translation, Action callback)
     {
 		yield return loader;
+		Debug.Log ("LOAD MTL");
         if (loader.error != null)
         {
             Debug.LogError(loader.error);
@@ -125,6 +126,7 @@ public class OBJ
 	public IEnumerator LoadTexture(WWW loader, MaterialData m, string text, Vector3 translation, Action callback)
     {
 		yield return loader;
+		Debug.Log ("LOAD TEXTURE");
         if (loader.error != null)
         {
             Debug.LogError(loader.error);

@@ -98,8 +98,10 @@ public class Actor : MonoBehaviour {
 		Vector3 motion = currNode - newPos;
 		motion.Normalize();
 		newPos += motion * m_speed;
-		
+
+		this.transform.LookAt (newPos);
 		transform.position = newPos;
+
 	}
 	
 	private void SetTarget()

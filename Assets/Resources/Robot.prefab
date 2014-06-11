@@ -49,6 +49,7 @@ GameObject:
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400002}
+  - 81: {fileID: 8100000}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -87,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.34641123, y: .0528267957, z: -1.93448102}
+  m_LocalPosition: {x: -4.46881437, y: .0528264232, z: -2.97668648}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -166,6 +167,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.20000005, y: .5, z: 1.20000005}
   m_Center: {x: 0, y: .200000003, z: .119999997}
+--- !u!81 &8100000
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
 --- !u!92 &9200000
 Behaviour:
   m_ObjectHideFlags: 1
@@ -199,19 +207,19 @@ TrailRenderer:
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
-      rgba: 2197815295
+      rgba: 4294967295
     m_Color[1]:
       serializedVersion: 2
-      rgba: 2197815295
+      rgba: 4294967295
     m_Color[2]:
       serializedVersion: 2
-      rgba: 2197815295
+      rgba: 4294967295
     m_Color[3]:
       serializedVersion: 2
-      rgba: 2197815295
+      rgba: 4294967295
     m_Color[4]:
       serializedVersion: 2
-      rgba: 16777215
+      rgba: 4294967295
   m_MinVertexDistance: .100000001
   m_Autodestruct: 0
 --- !u!114 &11400002
@@ -222,7 +230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad4a53d211c8402cbc0f6b109d8ac3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fa14cfba555c4734900c59e684d1d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
@@ -240,8 +248,8 @@ MonoBehaviour:
   axes: 0
   sensitivityX: 10
   sensitivityY: 10
-  minimumX: -45
-  maximumX: 45
+  minimumX: -90
+  maximumX: 90
   minimumY: -60
   maximumY: 60
 --- !u!114 &11400006

@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-public class RobotBehaviour : MonoBehaviour {
+using System.Net;
+using System.Net.Mail;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+
+public class Simulation : MonoBehaviour {
 
 	public float speed = 5.0f;
 
@@ -10,6 +15,7 @@ public class RobotBehaviour : MonoBehaviour {
 	private Vector3 currentTargetPosition;
 	private ArrayList markersArray;
 	private ArrayList lightsArray = new ArrayList();
+	private ArrayList musicsArray = new ArrayList();
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +33,8 @@ public class RobotBehaviour : MonoBehaviour {
 			{
 				if(currentMarker.name.Contains("StartSpawn"))
 				{
-					removeAllLights();
+					StopAllAudioSources();
+					RemoveAllLights();
 					mainCamera.GetComponent<Interface>().StopSimulation();
 				}
 				else
@@ -72,7 +79,6 @@ public class RobotBehaviour : MonoBehaviour {
 			currentMarker = markersArray [0] as GameObject;
 			currentMarker.GetComponent<BoxCollider> ().enabled = false;
 			currentTargetPosition = currentMarker.transform.position;
-			this.transform.LookAt(currentTargetPosition * Time.deltaTime);
 			this.GetComponent<Actor>().MoveOrder(currentTargetPosition);
 			currentIndexMarker = 0;
 		}
@@ -84,7 +90,6 @@ public class RobotBehaviour : MonoBehaviour {
 			float X = currentMarker.transform.position.x;
 			float Z = currentMarker.transform.position.z;
 			currentTargetPosition = new Vector3(X, this.transform.position.y, Z);
-			this.transform.LookAt(currentTargetPosition * Time.deltaTime);
 			this.GetComponent<Actor>().MoveOrder(currentTargetPosition);
 			currentIndexMarker++;
 		}
@@ -104,11 +109,27 @@ public class RobotBehaviour : MonoBehaviour {
 	}
 	void PlayMusic()
 	{
-		
+		musicsArray.Add (currentMarker);
+		currentMarker.GetComponent<AudioSource> ().Play ();
 	}
 	void SendEmail()
 	{
+		MailMessage mail = new MailMessage();
 		
+		mail.From = new MailAddress("basso.florian@gmail.com");
+		mail.To.Add("basso.florian@gmail.com");
+		mail.Subject = "Report Security Robot";
+		mail.Body = "Everything is fine ! Don't worry Lord, I will protect your house at any price !";
+		
+		SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+		smtpServer.Port = 587;
+		smtpServer.Credentials = new System.Net.NetworkCredential("basso.florian@gmail.com", "xuNJutM6") as ICredentialsByHost;
+		smtpServer.EnableSsl = true;
+		ServicePointManager.ServerCertificateValidationCallback = 
+			delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) 
+		{ return true; };
+//		smtpServer.Send(mail);
+		Debug.Log("success");
 	}
 	void Explode()
 	{
@@ -116,14 +137,22 @@ public class RobotBehaviour : MonoBehaviour {
 	}
 
 	//LIGHTS ARRAY MANAGEMENT
-	void removeAllLights()
+	void RemoveAllLights()
 	{
 		Debug.Log (lightsArray.Count);
-		Debug.Log ("IN REMOVE ALL LIGHTS");
 		for(int i = 0; i < lightsArray.Count; i++)
 		{
-			Debug.Log ("IN LOOP IN REMOVE ALL LIGHTS");
 			DestroyImmediate(lightsArray[i] as Object, true);
+		}
+		lightsArray.Clear();
+	}
+	// MUSICS ARRAY MANAGEMENT
+	void StopAllAudioSources()
+	{
+		for(int i = 0; i < musicsArray.Count; i++)
+		{
+			GameObject anAudioSource = musicsArray[i] as GameObject;
+			anAudioSource.GetComponent<AudioSource> ().Stop ();
 		}
 		lightsArray.Clear();
 	}

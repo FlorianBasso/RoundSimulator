@@ -19,11 +19,13 @@ public class Interface : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-//		OBJ.Instance.Start("../Wall-E pack/Wall-E MediumPoly/Wall-E.obj", Vector3.zero, () =>
-//		                   {
-//			// DO whatever you want on this callback 
-//			
-//		});
+		Debug.Log ("Start");
+		OBJ.Instance.Start("../Wall-E pack/Wall-E MediumPoly/cube.obj", Vector3.zero, () =>
+		                 {
+			// DO whatever you want on this callback 
+			Debug.Log("fefz");
+			
+		});
 	}
 	
 	// Update is called once per frame
