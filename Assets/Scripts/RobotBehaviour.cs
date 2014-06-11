@@ -8,7 +8,8 @@ public class RobotBehaviour : MonoBehaviour {
 	private int currentIndexMarker = 1;
 	private GameObject currentMarker;
 	private Vector3 currentTargetPosition;
-	private ArrayList markersArray; 
+	private ArrayList markersArray;
+	private ArrayList lightsArray = new ArrayList();
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,7 @@ public class RobotBehaviour : MonoBehaviour {
 			{
 				if(currentMarker.name.Contains("StartSpawn"))
 				{
+					removeAllLights();
 					mainCamera.GetComponent<Interface>().StopSimulation();
 				}
 				else
@@ -68,9 +70,10 @@ public class RobotBehaviour : MonoBehaviour {
 		{
 			//GO back to the startSpawn
 			currentMarker = markersArray [0] as GameObject;
-			this.GetComponent<Actor>().MoveOrder(currentMarker.transform.position);
 			currentMarker.GetComponent<BoxCollider> ().enabled = false;
 			currentTargetPosition = currentMarker.transform.position;
+			this.transform.LookAt(currentTargetPosition * Time.deltaTime);
+			this.GetComponent<Actor>().MoveOrder(currentTargetPosition);
 			currentIndexMarker = 0;
 		}
 		else
@@ -81,6 +84,7 @@ public class RobotBehaviour : MonoBehaviour {
 			float X = currentMarker.transform.position.x;
 			float Z = currentMarker.transform.position.z;
 			currentTargetPosition = new Vector3(X, this.transform.position.y, Z);
+			this.transform.LookAt(currentTargetPosition * Time.deltaTime);
 			this.GetComponent<Actor>().MoveOrder(currentTargetPosition);
 			currentIndexMarker++;
 		}
@@ -88,7 +92,11 @@ public class RobotBehaviour : MonoBehaviour {
 
 	void LightOn()
 	{
-		
+		GameObject lightGameObject = new GameObject("The Light");
+		lightGameObject.AddComponent<Light>();
+		lightGameObject.light.color = new Color( Random.value, Random.value, Random.value, 1.0f );
+		lightGameObject.transform.position = new Vector3(currentMarker.transform.position.x, 5, currentMarker.transform.position.z);
+		lightsArray.Add (lightGameObject);
 	}
 	void LockDown()
 	{
@@ -105,5 +113,18 @@ public class RobotBehaviour : MonoBehaviour {
 	void Explode()
 	{
 		
+	}
+
+	//LIGHTS ARRAY MANAGEMENT
+	void removeAllLights()
+	{
+		Debug.Log (lightsArray.Count);
+		Debug.Log ("IN REMOVE ALL LIGHTS");
+		for(int i = 0; i < lightsArray.Count; i++)
+		{
+			Debug.Log ("IN LOOP IN REMOVE ALL LIGHTS");
+			DestroyImmediate(lightsArray[i] as Object, true);
+		}
+		lightsArray.Clear();
 	}
 }

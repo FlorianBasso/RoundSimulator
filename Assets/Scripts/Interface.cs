@@ -15,6 +15,8 @@ public class Interface : MonoBehaviour {
 	public float simulationSpeed = 5.0f;
 	static public bool isOnGUI = false;
 	public bool simulationIsRunning = false;
+	public GUISkin mainSkin;
+
 	// Use this for initialization
 	void Start () {
 //		OBJ.Instance.Start("../Wall-E pack/Wall-E MediumPoly/Wall-E.obj", Vector3.zero, () =>
@@ -50,6 +52,7 @@ public class Interface : MonoBehaviour {
 
 	void OnGUI()
 	{	
+		GUI.skin = mainSkin;
 		//GO BACK to MENU 
 		if (GUI.Button(new Rect(0, 0, 50, 20), "Menu"))
 		{
@@ -93,7 +96,7 @@ public class Interface : MonoBehaviour {
 		{
 			if(!startSpawn)
 			{
-				startSpawn = Instantiate(Resources.Load("StartSpawn"), new Vector3(0,0.5f,0), Quaternion.identity) as GameObject;
+				startSpawn = Instantiate(Resources.Load("StartSpawn"), new Vector3(0,0,0), Quaternion.identity) as GameObject;
 				this.GetComponent<Manager>().AddObjectInMarkersArray(startSpawn);
 			}
 		}
@@ -102,7 +105,7 @@ public class Interface : MonoBehaviour {
 		Rect rectLabelRobotSpeed = new Rect(10, 50, 100, 30);
 		Rect rectRobotSpeed = new Rect(10, 80, 100, 30);
 		GUI.Label(rectLabelRobotSpeed, "Robot speed");
-		robotSpeed = GUI.HorizontalSlider(rectRobotSpeed, robotSpeed, 1.0f, 10.0f);
+		robotSpeed = GUI.HorizontalSlider(rectRobotSpeed, robotSpeed, 1.0f, 30.0f);
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
 	}
 

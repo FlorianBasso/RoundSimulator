@@ -2,15 +2,9 @@
 using System.Collections;
 
 public class CameraControl : MonoBehaviour {
-
-	RaycastHit hit;
-	bool leftClickFlag = true;
 	
 	public GameObject actor;
-	public string floorTag;
 	
-	Actor actorScript;
-
 	// Use this for initialization
 	void Start () {
 
