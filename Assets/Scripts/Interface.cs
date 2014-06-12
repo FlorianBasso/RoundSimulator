@@ -16,6 +16,8 @@ public class Interface : MonoBehaviour {
 	static public bool isOnGUI = false;
 	public bool simulationIsRunning = false;
 	public GUISkin mainSkin;
+	public float buttonsWidth;
+	public float buttonsHeight;
 
 	// Use this for initialization
 	void Start () {
@@ -78,14 +80,22 @@ public class Interface : MonoBehaviour {
 	
 	void setWindowObstacle(int windowID) 
 	{
-		if (GUI.Button(new Rect(10, 20, 100, 20), "Chair"))
+		GameObject anObstacle;
+		if (GUI.Button(new Rect(10, 20, buttonsWidth, buttonsHeight), "Chair"))
 		{
-			Instantiate(Resources.Load("chair_7106"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0));
+			anObstacle =  Instantiate(Resources.Load("chair_7106"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0)) as GameObject;
+			this.GetComponent<Manager>().AddObjectInObstaclesArray(anObstacle);
+
 		}
-		
-		if (GUI.Button(new Rect(10, 50, 100, 20), "Table"))
+		if (GUI.Button(new Rect(10, 50, buttonsWidth, buttonsHeight), "Table"))
 		{
-			Instantiate(Resources.Load("table_7103"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0));
+			anObstacle = Instantiate(Resources.Load("table_7103"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0)) as GameObject;
+			this.GetComponent<Manager>().AddObjectInObstaclesArray(anObstacle);
+		}
+		if (GUI.Button(new Rect(10, 80, buttonsWidth, buttonsHeight), "Couch"))
+		{
+			anObstacle = Instantiate(Resources.Load("Couch"), new Vector3(0,0,0), Quaternion.identity) as GameObject;
+			this.GetComponent<Manager>().AddObjectInObstaclesArray(anObstacle);
 		}
 
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
@@ -93,7 +103,7 @@ public class Interface : MonoBehaviour {
 	
 	void setWindowRobot(int windowID) 
 	{
-		if (GUI.Button(new Rect(10, 20, 100, 20), "Starting Point"))
+		if (GUI.Button(new Rect(10, 20, buttonsWidth, buttonsHeight), "Starting Point"))
 		{
 			if(!startSpawn)
 			{
@@ -103,8 +113,8 @@ public class Interface : MonoBehaviour {
 		}
 
 		//ROBOT SPEED
-		Rect rectLabelRobotSpeed = new Rect(10, 50, 100, 30);
-		Rect rectRobotSpeed = new Rect(10, 80, 100, 30);
+		Rect rectLabelRobotSpeed = new Rect(10, 50, buttonsWidth, 30);
+		Rect rectRobotSpeed = new Rect(10, 80, buttonsWidth, 30);
 		GUI.Label(rectLabelRobotSpeed, "Robot speed");
 		robotSpeed = GUI.HorizontalSlider(rectRobotSpeed, robotSpeed, 1.0f, 30.0f);
 		GUI.DragWindow(new Rect(0, 0, 10000, 10000));
@@ -113,32 +123,32 @@ public class Interface : MonoBehaviour {
 	void setWindowMarkers(int windowID) 
 	{
 		GameObject aMarker;
-		if (GUI.Button(new Rect(10, 20, 100, 20), "Node"))
+		if (GUI.Button(new Rect(10, 20, buttonsWidth, buttonsHeight), "Node"))
 		{
 			aMarker = Instantiate(Resources.Load("Node"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 50, 100, 20), "Explode"))
+		if (GUI.Button(new Rect(10, 50, buttonsWidth, buttonsHeight), "Explode"))
 		{
 			aMarker = Instantiate(Resources.Load("Explode"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 80, 100, 20), "Light On"))
+		if (GUI.Button(new Rect(10, 80, buttonsWidth, buttonsHeight), "Light On"))
 		{
 			aMarker = Instantiate(Resources.Load("LightOn"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 110, 100, 20), "Lock Down"))
+		if (GUI.Button(new Rect(10, 110, buttonsWidth, buttonsHeight), "Lock Down"))
 		{
 			aMarker = Instantiate(Resources.Load("LockDown"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 140, 100, 20), "Play Music"))
+		if (GUI.Button(new Rect(10, 140, buttonsWidth, buttonsHeight), "Play Music"))
 		{
 			aMarker = Instantiate(Resources.Load("PlayMusic"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
 		}
-		if (GUI.Button(new Rect(10, 170, 100, 20), "Send Email"))
+		if (GUI.Button(new Rect(10, 170, buttonsWidth, buttonsHeight), "Send Email"))
 		{
 			aMarker = Instantiate(Resources.Load("SendEmail"), new Vector3(0,0.5f,0), Quaternion.Euler(90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInMarkersArray(aMarker);
@@ -149,13 +159,9 @@ public class Interface : MonoBehaviour {
 
 	void setWindowSimulation(int windowID) 
 	{
-		if (GUI.Button(new Rect(10, 20, 100, 20), "Rewind"))
+		if (GUI.Button(new Rect(10, 20, buttonsWidth, buttonsHeight), "Play"))
 		{
-			
-		}
-		if (GUI.Button(new Rect(10, 50, 100, 20), "Play"))
-		{
-			if(startSpawn)
+			if(startSpawn && !robot)
 			{
 				robot = Instantiate(Resources.Load("Robot"), startSpawn.transform.position, Quaternion.identity) as GameObject;
 				this.camera.enabled = false;
@@ -164,16 +170,12 @@ public class Interface : MonoBehaviour {
 				simulationIsRunning = true;
 			}
 		}
-		if (GUI.Button(new Rect(10, 80, 100, 20), "Forward"))
-		{
-			
-		}
-		if (GUI.Button(new Rect(10, 110, 100, 20), "Stop"))
+		if (GUI.Button(new Rect(10, 50, buttonsWidth, buttonsHeight), "Stop"))
 		{
 			StopSimulation();
 		}
 		//SAVE
-		if (GUI.Button(new Rect(10, 140, 100, 20), "Save"))
+		if (GUI.Button(new Rect(10, 80, buttonsWidth, buttonsHeight), "Save"))
 		{
 			//Add a prompt where the user can enter a name for the save then click ok OR cancel
 		}
@@ -192,12 +194,5 @@ public class Interface : MonoBehaviour {
 		DestroyImmediate(robot, true);
 		this.camera.enabled = true;
 		simulationIsRunning = false;
-
-		//Enabled all markers' collider
-		for (int i = 0; i < this.GetComponent<Manager>().markersArray.Count; i++) 
-		{
-			GameObject aMarker = this.GetComponent<Manager>().markersArray[i] as GameObject;
-			aMarker.GetComponent<BoxCollider>().enabled = true;
-		}
 	}
 }

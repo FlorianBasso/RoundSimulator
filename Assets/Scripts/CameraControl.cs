@@ -16,7 +16,8 @@ public class CameraControl : MonoBehaviour {
 		float zoom = Input.GetAxis("Mouse ScrollWheel");
 		if(zoom >= 0.1)
 		{
-			this.transform.Translate(Vector3.forward * Time.deltaTime * 200);  
+			if(this.transform.localPosition.y > 0)
+				this.transform.Translate(Vector3.forward * Time.deltaTime * 200);  
 		}	
 		//DEZOOM
 		else if(zoom <= -0.1)

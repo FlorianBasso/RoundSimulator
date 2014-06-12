@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 public class Simulation : MonoBehaviour {
 
 	public float speed = 5.0f;
-
+	public GameObject explosionPrefab;
 	private GameObject mainCamera;
 	private int currentIndexMarker = 1;
 	private GameObject currentMarker;
@@ -16,6 +16,10 @@ public class Simulation : MonoBehaviour {
 	private ArrayList markersArray;
 	private ArrayList lightsArray = new ArrayList();
 	private ArrayList musicsArray = new ArrayList();
+
+	//MAIL
+	private MailMessage mail;
+	private SmtpClient smtpServer;
 
 	// Use this for initialization
 	void Start () {
@@ -77,7 +81,6 @@ public class Simulation : MonoBehaviour {
 		{
 			//GO back to the startSpawn
 			currentMarker = markersArray [0] as GameObject;
-			currentMarker.GetComponent<BoxCollider> ().enabled = false;
 			currentTargetPosition = currentMarker.transform.position;
 			this.GetComponent<Actor>().MoveOrder(currentTargetPosition);
 			currentIndexMarker = 0;
@@ -86,7 +89,6 @@ public class Simulation : MonoBehaviour {
 		{
 			//Move to the position of the marker
 			currentMarker = markersArray[currentIndexMarker] as GameObject;
-			currentMarker.GetComponent<BoxCollider> ().enabled = false;
 			float X = currentMarker.transform.position.x;
 			float Z = currentMarker.transform.position.z;
 			currentTargetPosition = new Vector3(X, this.transform.position.y, Z);
@@ -114,26 +116,35 @@ public class Simulation : MonoBehaviour {
 	}
 	void SendEmail()
 	{
-		MailMessage mail = new MailMessage();
+		mail = new MailMessage();
 		
-		mail.From = new MailAddress("basso.florian@gmail.com");
+		mail.From = new MailAddress("jpzerobot@gmail.com");
 		mail.To.Add("basso.florian@gmail.com");
-		mail.Subject = "Report Security Robot";
-		mail.Body = "Everything is fine ! Don't worry Lord, I will protect your house at any price !";
+		mail.To.Add ("alainlioret@gmail.com");
+		mail.Subject = "Report Security Robot"; 
+		mail.Body = "Everything is fine ! Don't worry Lord, I will protect your house at any price! \n \n Jean Pierre Ze Robot ";
 		
-		SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+		smtpServer = new SmtpClient("smtp.gmail.com");
 		smtpServer.Port = 587;
-		smtpServer.Credentials = new System.Net.NetworkCredential("basso.florian@gmail.com", "xuNJutM6") as ICredentialsByHost;
+		smtpServer.Credentials = new System.Net.NetworkCredential("jpzerobot@gmail.com", "JP1990ZeRobot289") as ICredentialsByHost;
 		smtpServer.EnableSsl = true;
 		ServicePointManager.ServerCertificateValidationCallback = 
 			delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) 
 		{ return true; };
-//		smtpServer.Send(mail);
+//		smtpServer.Send (mail);
+		smtpServer.SendAsync (mail, "userToken");
+//		StartCoroutine ("SendEmailAsync");
 		Debug.Log("success");
+	}
+	IEnumerator SendEmailAsync()
+	{
+		smtpServer.Send(mail);
+		yield return null;
 	}
 	void Explode()
 	{
-		
+		GameObject exp = Instantiate (explosionPrefab, this.transform.position, Quaternion.identity) as GameObject;
+		Destroy(exp, 10); 	
 	}
 
 	//LIGHTS ARRAY MANAGEMENT

@@ -4,10 +4,11 @@ using System.Collections;
 public class Manager : MonoBehaviour {
 
 	public ArrayList markersArray = new ArrayList();
+	public ArrayList obstaclesArray = new ArrayList();
 	public LineRenderer lineRenderer;
 	// Use this for initialization
 	void Start () {
-		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+//		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
 		lineRenderer.SetColors(Color.red, Color.red);
 		lineRenderer.SetWidth(0.2F, 0.2F);
 		lineRenderer.enabled = false;
@@ -29,7 +30,7 @@ public class Manager : MonoBehaviour {
 			}
 		}
 	}
-
+	//MARKERS ARRAY MANAGEMENT
 	public void RemoveObjectInMarkersArray(GameObject anObject){
 		for(int i = 0; i < markersArray.Count; i++){
 			if(anObject.Equals(markersArray[i])){
@@ -39,5 +40,16 @@ public class Manager : MonoBehaviour {
 	}
 	public void AddObjectInMarkersArray(GameObject anObject){
 		markersArray.Add (anObject);
+	}
+	//OBSTACLES ARRAY MANAGEMENT
+	public void RemoveObjectInObstaclesArray(GameObject anObject){
+		for(int i = 0; i < obstaclesArray.Count; i++){
+			if(anObject.Equals(obstaclesArray[i])){
+				obstaclesArray.RemoveAt(i);
+			}
+		}
+	}
+	public void AddObjectInObstaclesArray(GameObject anObject){
+		obstaclesArray	.Add (anObject);
 	}
 }
