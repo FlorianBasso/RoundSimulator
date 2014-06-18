@@ -52,4 +52,10 @@ public class Manager : MonoBehaviour {
 	public void AddObjectInObstaclesArray(GameObject anObject){
 		obstaclesArray	.Add (anObject);
 	}
+
+	//SAVE MANAGEMENT
+	public void SaveRound(string fileName)
+	{
+		//Create file and really save :D
+	}
 }

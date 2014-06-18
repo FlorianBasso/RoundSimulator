@@ -95,6 +95,7 @@ public class Simulation : MonoBehaviour {
 			this.GetComponent<Actor>().MoveOrder(currentTargetPosition);
 			currentIndexMarker++;
 		}
+		currentMarker.GetComponent<BoxCollider> ().enabled = false;
 	}
 
 	void LightOn()
@@ -120,7 +121,7 @@ public class Simulation : MonoBehaviour {
 		
 		mail.From = new MailAddress("jpzerobot@gmail.com");
 		mail.To.Add("basso.florian@gmail.com");
-		mail.To.Add ("alainlioret@gmail.com");
+//		mail.To.Add ("alainlioret@gmail.com");
 		mail.Subject = "Report Security Robot"; 
 		mail.Body = "Everything is fine ! Don't worry Lord, I will protect your house at any price! \n \n Jean Pierre Ze Robot ";
 		
@@ -131,16 +132,10 @@ public class Simulation : MonoBehaviour {
 		ServicePointManager.ServerCertificateValidationCallback = 
 			delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) 
 		{ return true; };
-//		smtpServer.Send (mail);
 		smtpServer.SendAsync (mail, "userToken");
-//		StartCoroutine ("SendEmailAsync");
 		Debug.Log("success");
 	}
-	IEnumerator SendEmailAsync()
-	{
-		smtpServer.Send(mail);
-		yield return null;
-	}
+
 	void Explode()
 	{
 		GameObject exp = Instantiate (explosionPrefab, this.transform.position, Quaternion.identity) as GameObject;
