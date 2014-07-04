@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Interface.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/OBJLoader/OBJ.cs">
     <Files>
-      <File FileName="Assets/Scripts/Interface.cs" Line="219" Column="3" />
-      <File FileName="Assets/Scripts/Simulation.cs" Line="122" Column="51" />
-      <File FileName="Assets/Scripts/Manager.cs" Line="57" Column="39" />
+      <File FileName="Assets/FileBrowser/Script/testFileBrowser.cs" Line="36" Column="3" />
+      <File FileName="Assets/Scripts/Interface.cs" Line="119" Column="40" />
+      <File FileName="Assets/Scripts/OBJLoader/OBJ.cs" Line="70" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

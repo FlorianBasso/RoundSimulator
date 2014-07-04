@@ -6,8 +6,9 @@ public class Interface : MonoBehaviour {
 	//GAMEOBJECT IN THE SCENE 
 	private GameObject startSpawn;
 	private GameObject robot;
+	private GameObject house;
 	//BUTTONS INTERFACE
-	public Rect windowObstacle;
+	public Rect windowHome;
 	public Rect windowRobot;
 	public Rect windowMarkers;
 	public Rect windowSimulation;
@@ -24,22 +25,35 @@ public class Interface : MonoBehaviour {
 	public float buttonsWidth;
 	public float buttonsHeight;
 
+	//FILE BROWSER
+	public Texture2D file,folder,back,drive;
+
+	FileBrowser fb = new FileBrowser(new Rect(Screen.width/2 - Screen.width*0.3f,Screen.height*0.125f,Screen.width*0.6f,Screen.height*0.75f));
+	private bool canDisplayFileBrowser = false;
+
+
 	// Use this for initialization
 	void Start () {
 
+		house =  Instantiate(Resources.Load("House"), new Vector3(0,0,0), Quaternion.identity) as GameObject;
+
+		//setup file browser style
+		fb.guiSkin = mainSkin; //set the starting skin
+		//set the various textures
+		fb.fileTexture = file; 
+		fb.directoryTexture = folder;
+		fb.backTexture = back;
+		fb.driveTexture = drive;
+
 		windowSave = new Rect (Screen.width / 2 - 150, Screen.height / 2 - 100, 300, 100);
 		windowLoad = new Rect (Screen.width / 2 - 150, Screen.height / 2 - 100, 300, 100);
-//		OBJ.Instance.Start("../Wall-E pack/Wall-E MediumPoly/cube.obj", Vector3.zero, () =>
-//		                 {
-//			// DO whatever you want on this callback 
-//			Debug.Log("fefz");
-//		});
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (windowObstacle.Contains (Input.mousePosition) || windowRobot.Contains (Input.mousePosition) || windowMarkers.Contains (Input.mousePosition) || windowSimulation.Contains (Input.mousePosition)) {
+		if (windowHome.Contains (Input.mousePosition) || windowRobot.Contains (Input.mousePosition) || windowMarkers.Contains (Input.mousePosition) || windowSimulation.Contains (Input.mousePosition)) {
 			isOnGUI = true;
 			if(robot)
 				robot.GetComponent<Actor>().m_speed_multi = robotSpeed;
@@ -80,7 +94,7 @@ public class Interface : MonoBehaviour {
 			if(startSpawn)
 				windowMarkers = GUI.Window(2, windowMarkers, setWindowMarkers, "Markers");
 
-			windowObstacle = GUI.Window(0, windowObstacle, setWindowObstacle, "Obstacles");
+			windowHome = GUI.Window(0, windowHome, setWindowHome, "Home");
 		}
 		windowRobot = GUI.Window(1, windowRobot, setWindowRobot, "Robot");
 		if (startSpawn) 
@@ -91,23 +105,46 @@ public class Interface : MonoBehaviour {
 			if (isLoading)
 				windowLoad = GUI.Window (4, windowLoad, setWindowLoad, "Load file");
 		}
+		if(canDisplayFileBrowser)
+		{
+			//draw and display output
+			if(fb.draw()){ //true is returned when a file has been selected
+				//the output file is a memeber if the FileInfo class, if cancel was selected the value is null
+				Debug.Log((fb.outputFile==null)?"cancel hit":fb.outputFile.ToString());
+				Debug.Log("Ouput File = \""+fb.outputFile.ToString()+"\"");
+
+				OBJ.Instance.Start(fb.outputFile.ToString() , new Vector3(0, -19.5f, 0), () =>
+				{
+					// DO whatever you want on this callback 
+					DestroyImmediate(house, true);
+					house = GameObject.Find("MyShip");
+					//TO DO : Add mesh collider
+					house.AddComponent<MeshCollider>();
+				});
+				canDisplayFileBrowser = false;
+			}
+		}
 	}	
 	
-	void setWindowObstacle(int windowID) 
+	void setWindowHome(int windowID) 
 	{
 		GameObject anObstacle;
-		if (GUI.Button(new Rect(10, 20, buttonsWidth, buttonsHeight), "Chair"))
+		if (GUI.Button(new Rect(10, 20, buttonsWidth, buttonsHeight), "House"))
+		{
+			canDisplayFileBrowser = true;
+		}
+		if (GUI.Button(new Rect(10, 50, buttonsWidth, buttonsHeight), "Chair"))
 		{
 			anObstacle =  Instantiate(Resources.Load("chair_7106"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInObstaclesArray(anObstacle);
 
 		}
-		if (GUI.Button(new Rect(10, 50, buttonsWidth, buttonsHeight), "Table"))
+		if (GUI.Button(new Rect(10, 80, buttonsWidth, buttonsHeight), "Table"))
 		{
 			anObstacle = Instantiate(Resources.Load("table_7103"), new Vector3(0,0,0), Quaternion.Euler(-90, 0, 0)) as GameObject;
 			this.GetComponent<Manager>().AddObjectInObstaclesArray(anObstacle);
 		}
-		if (GUI.Button(new Rect(10, 80, buttonsWidth, buttonsHeight), "Couch"))
+		if (GUI.Button(new Rect(10, 110, buttonsWidth, buttonsHeight), "Couch"))
 		{
 			anObstacle = Instantiate(Resources.Load("Couch"), new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			this.GetComponent<Manager>().AddObjectInObstaclesArray(anObstacle);

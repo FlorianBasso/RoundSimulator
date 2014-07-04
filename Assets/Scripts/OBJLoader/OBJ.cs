@@ -66,7 +66,8 @@ public class OBJ
 	
     public void Start(string objPath, Vector3 translation, Action callback)
     {
-        string normalPath = Path.GetFullPath("../Assets/" + objPath);
+//        string normalPath = Path.GetFullPath("../Assets/" + objPath);
+		string normalPath = Path.GetFullPath(objPath);
         normalPath = normalPath.Replace("\\", "/");
         normalPath = "file:///" + normalPath;
 		Debug.Log (normalPath);

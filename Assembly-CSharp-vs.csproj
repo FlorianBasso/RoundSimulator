@@ -59,9 +59,10 @@
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSound.cs" />
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSparks.cs" />
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSpray.cs" />
+     <Compile Include="Assets\FileBrowser\Script\FileBrowser.cs" />
+     <Compile Include="Assets\FileBrowser\Script\testFileBrowser.cs" />
      <Compile Include="Assets\Scripts\CameraControl.cs" />
      <Compile Include="Assets\Scripts\DragObject.cs" />
-     <Compile Include="Assets\Scripts\FilePicker.cs" />
      <Compile Include="Assets\Scripts\Interface.cs" />
      <Compile Include="Assets\Scripts\Manager.cs" />
      <Compile Include="Assets\Scripts\Menu\ModifyRound_btn.cs" />
@@ -70,13 +71,13 @@
      <Compile Include="Assets\Scripts\OBJLoader\FaceIndices.cs" />
      <Compile Include="Assets\Scripts\OBJLoader\GeometryBuffer.cs" />
      <Compile Include="Assets\Scripts\OBJLoader\OBJ.cs" />
-     <Compile Include="Assets\Scripts\OpenFile.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\Actor.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\Avoidance.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\NodeControl.cs" />
      <Compile Include="Assets\Scripts\RotateRobot.cs" />
      <Compile Include="Assets\Scripts\ScreenRelativePosition.cs" />
      <Compile Include="Assets\Scripts\Simulation.cs" />
+     <None Include="Assets\FileBrowser\readme.txt" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>/Users/roaflin/Documents/Cours/ESGI/5ème année/Projet annuel/RoundSimulator/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
