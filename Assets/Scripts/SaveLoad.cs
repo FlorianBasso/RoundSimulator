@@ -1,70 +1,30 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.IO;
 using System.Xml;
 using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
 
-public class Manager : MonoBehaviour {
 
-	public ArrayList markersArray = new ArrayList();
-	public ArrayList obstaclesArray = new ArrayList();
-	public LineRenderer lineRenderer;
+public class SaveLoad
+{
+    public GameObject mainCamera;
 
+    private ArrayList markers = new ArrayList();
+    private ArrayList obstacles = new ArrayList();
     private float x, y, z;
     private string name;
 
-	// Use this for initialization
-	void Start () {
-//		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-		lineRenderer.SetColors(Color.red, Color.red);
-		lineRenderer.SetWidth(0.2F, 0.2F);
-		lineRenderer.enabled = false;
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		if (markersArray.Count > 0) 
-		{
-			lineRenderer.enabled = true;
-			lineRenderer.SetVertexCount(markersArray.Count);
-			int i = 0;
-			while (i < markersArray.Count) 
-			{
-				GameObject aMarker = markersArray[i] as GameObject;
-				lineRenderer.SetPosition(i, aMarker.transform.position);
-				i++;
-			}
-		}
-	}
-	//MARKERS ARRAY MANAGEMENT
-	public void RemoveObjectInMarkersArray(GameObject anObject){
-		for(int i = 0; i < markersArray.Count; i++){
-			if(anObject.Equals(markersArray[i])){
-				markersArray.RemoveAt(i);
-			}
-		}
-	}
-	public void AddObjectInMarkersArray(GameObject anObject){
-		markersArray.Add (anObject);
-	}
-	//OBSTACLES ARRAY MANAGEMENT
-	public void RemoveObjectInObstaclesArray(GameObject anObject){
-		for(int i = 0; i < obstaclesArray.Count; i++){
-			if(anObject.Equals(obstaclesArray[i])){
-				obstaclesArray.RemoveAt(i);
-			}
-		}
-	}
-	public void AddObjectInObstaclesArray(GameObject anObject){
-		obstaclesArray	.Add (anObject);
-	}
+    public void Start()
+    {
+    }
 
-	//SAVE MANAGEMENT
-	public void SaveRound(string fileName)
-	{
-		//Create file and really save :D
+    public void SaveRound(string fileName)
+    {
         XmlWriter w;
+        markers = mainCamera.GetComponent<Manager>().markersArray;
+        obstacles = mainCamera.GetComponent<Manager>().obstaclesArray;
+
         Debug.Log(String.Format("{0}{1}", Application.dataPath.ToString(), fileName));
 
         if (File.Exists(String.Format("{0}{1}", Application.dataPath.ToString(), fileName)))
@@ -75,7 +35,7 @@ public class Manager : MonoBehaviour {
         w.WriteStartDocument();
         w.WriteStartElement("Elements"); w.WriteWhitespace("\n");
         w.WriteStartElement("Markers"); w.WriteWhitespace("\n");
-        foreach (GameObject m in markersArray)
+        foreach (GameObject m in markers)
         {
             w.WriteStartElement("marker");
             w.WriteElementString("name", m.name.ToString()); w.WriteWhitespace("\n");
@@ -88,7 +48,7 @@ public class Manager : MonoBehaviour {
         w.WriteEndElement(); w.WriteWhitespace("\n");
 
         w.WriteStartElement("Obstacles"); w.WriteWhitespace("\n");
-        foreach (GameObject o in obstaclesArray)
+        foreach (GameObject o in obstacles)
         {
             w.WriteStartElement("obstacle");
             w.WriteElementString("name", o.name.ToString()); w.WriteWhitespace("\n");
@@ -102,5 +62,39 @@ public class Manager : MonoBehaviour {
 
         w.WriteEndElement(); w.WriteWhitespace("\n");
         w.WriteEndDocument();
-	}
+
+    }
+
+    public void LoadRound(string fileName)
+    {
+        XmlDocument d = new XmlDocument();
+        d.Load(Application.dataPath + fileName);
+
+        XmlNodeList allMarkersNode = d.GetElementsByTagName("marker");
+        Debug.Log(allMarkersNode.Count);
+        foreach (XmlNode marker in allMarkersNode)
+        {
+            XmlNodeList infos = marker.ChildNodes;
+            name = infos[0].InnerText;
+            x = float.Parse(infos[1].InnerText);
+            y = float.Parse(infos[2].InnerText);
+            z = float.Parse(infos[3].InnerText);
+            GameObject prefab = Resources.Load(name) as GameObject;
+            GameObject markObject = GameObject.Instantiate(prefab) as GameObject;
+            markObject.transform.position = new Vector3(x, y, z);
+        }
+
+        XmlNodeList allObstaclesNode = d.GetElementsByTagName("obstacle");
+        foreach (XmlNode obstacle in allObstaclesNode)
+        {
+            XmlNodeList infos = obstacle.ChildNodes;
+            name = infos[0].InnerText;
+            x = float.Parse(infos[1].InnerText);
+            y = float.Parse(infos[2].InnerText);
+            z = float.Parse(infos[3].InnerText);
+            GameObject prefab = Resources.Load(name) as GameObject;
+            GameObject obstacleObject = GameObject.Instantiate(prefab) as GameObject;
+            obstacleObject.transform.position = new Vector3(x, y, z);
+        }
+    }
 }
